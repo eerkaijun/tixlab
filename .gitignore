@@ -1,0 +1,8 @@
+build/
+node_modules/
+.secret
+__pycache__/
+*.manifest
+".spec
+*.egg
+

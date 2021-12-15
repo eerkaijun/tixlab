@@ -1,0 +1,31 @@
+{
+  "name": "blockchain-ticketing",
+  "version": "1.0.0",
+  "description": "A decentralised marketplace for ticketing",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.4.0",
+    "web3": "^1.3.0"
+  },
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.3.2",
+    "solidity-coverage": "^0.7.14",
+    "truffle": "^5.1.65"
+  },
+  "scripts": {
+    "test": "truffle test "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eerkaijun/blockchain-ticketing.git"
+  },
+  "author": "Kai Jun Eer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eerkaijun/blockchain-ticketing/issues"
+  },
+  "homepage": "https://github.com/eerkaijun/blockchain-ticketing#readme"
+}
