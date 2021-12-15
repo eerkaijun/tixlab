@@ -14,10 +14,8 @@ import {
 //import Spinner from "./Spinner";
 import {
   accountSelector,
-  ticketsLoadedSelector,
   ticketsSelector,
   marketplaceSelector,
-  saleTogglingSelector,
   modalSelector,
   web3Selector,
 } from "../store/selectors";

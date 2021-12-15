@@ -3,14 +3,13 @@ import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import {
   accountSelector,
-  ticketsSelector,
   marketplaceSelector,
   modalSelector,
   web3Selector,
   numTicketsSelector,
   investmentSoldSelector,
 } from "../store/selectors";
-import { changeTicketPrice, invest } from "../store/interactions";
+import { invest } from "../store/interactions";
 import { closeModal } from "../store/actions";
 
 class InvestModal extends Component {

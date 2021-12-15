@@ -30,7 +30,7 @@ import {
 import { toggleSale, buyTicket } from "../store/interactions";
 //import { openModal, closeModal } from "../store/actions";
 import { openModal } from "../store/actions";
-import { CATEGORIES } from "../hardcodedConstants";
+//import { CATEGORIES } from "../hardcodedConstants";
 
 // const showTickets = (props, parentState, handleClose, handleShow) => {
 const showTickets = (props, handleShow) => {
@@ -71,7 +71,7 @@ const showTickets = (props, handleShow) => {
             <td>
               {/* TODO use marketplaceState[1] to hide/show buttons depend on the marketplaceState
             creatingTickets, investmentStart, investmentStop, ticketSaleStart, eventStart  */}
-              {ticket.on_sale && marketplaceState == "ticketSaleStart" ? (
+              {ticket.on_sale && marketplaceState === "ticketSaleStart" ? (
                 <Button
                   variant="primary"
                   onClick={(e) => {

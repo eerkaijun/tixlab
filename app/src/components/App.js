@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {
   accountSelector,
   contractsLoadedSelector,
-  MarketplaceOwnerAccountSelector,
   isMarketplaceOwnerAccountSelector,
 } from "../store/selectors";
 import { connect } from "react-redux";

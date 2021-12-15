@@ -73,7 +73,7 @@ class Content extends Component {
           <>
             <Row>
               {/* creatingTickets, investmentStart, investmentStop, ticketSaleStart, eventStart  */}
-              {marketplaceState == "creatingTickets" &&
+              {marketplaceState === "creatingTickets" &&
               isMarketplaceOwnerAccount ? (
                 numTickets > 0 ? (
                   <Col>
@@ -95,7 +95,7 @@ class Content extends Component {
                 <></>
               )}
 
-              {marketplaceState == "investmentStart" &&
+              {marketplaceState === "investmentStart" &&
               isMarketplaceOwnerAccount ? (
                 <Col>
                   <Button
@@ -113,7 +113,7 @@ class Content extends Component {
                 <></>
               )}
 
-              {marketplaceState == "investmentStop" &&
+              {marketplaceState === "investmentStop" &&
               isMarketplaceOwnerAccount ? (
                 <Col>
                   <Button
@@ -131,7 +131,7 @@ class Content extends Component {
                 <></>
               )}
 
-              {marketplaceState == "ticketSaleStart" &&
+              {marketplaceState === "ticketSaleStart" &&
               isMarketplaceOwnerAccount ? (
                 <Col>
                   <Button
@@ -149,7 +149,7 @@ class Content extends Component {
                 <></>
               )}
 
-              {marketplaceState == "eventStart" && investorUnits > 0 ? (
+              {marketplaceState === "eventStart" && investorUnits > 0 ? (
                 <Col>
                   <Button
                     variant="primary"
@@ -174,7 +174,7 @@ class Content extends Component {
               {/* <Col>1 of 1</Col> */}
               <Col>
                 {/* <div className="col"> */}
-                {marketplaceState == "investmentStart" ? <Invest /> : <></>}
+                {marketplaceState === "investmentStart" ? <Invest /> : <></>}
               </Col>
             </Row>
 
