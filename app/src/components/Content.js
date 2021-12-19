@@ -51,7 +51,7 @@ class Content extends Component {
   render() {
     const {
       isMarketplaceOwnerAccount,
-      marketplaceState,
+      // marketplaceState, //TODO: uncomment when creatingEvent is added
       numTickets,
       dispatch,
       marketplace,
@@ -59,6 +59,7 @@ class Content extends Component {
       investorUnits,
       marketplaceStateChanging,
     } = this.props;
+    const marketplaceState = "creatingEvent"; //TODO: remove when creatingEvent is added
     return (
       <Container>
         {/* <div className="container"> */}
@@ -69,13 +70,31 @@ class Content extends Component {
           </Col>
         </Row>
 
+        {/* creatingEvent*/}
+        {marketplaceState === "creatingEvent" && isMarketplaceOwnerAccount && (
+          <Col>
+            <Button
+              variant="primary"
+              onClick={(e) => {
+                startInvestment(dispatch, marketplace, account);
+              }}
+              className="action-button"
+              style={{ float: "right" }}
+            >
+              Create Event
+            </Button>
+          </Col>
+        )}
+
         {marketplaceState && !marketplaceStateChanging ? (
           <>
             <Row>
               {/* creatingTickets, investmentStart, investmentStop, ticketSaleStart, eventStart  */}
+
+              {/* creatingTickets */}
               {marketplaceState === "creatingTickets" &&
-              isMarketplaceOwnerAccount ? (
-                numTickets > 0 ? (
+                isMarketplaceOwnerAccount &&
+                numTickets > 0 && (
                   <Col>
                     <Button
                       variant="primary"
@@ -88,13 +107,8 @@ class Content extends Component {
                       Start Investment
                     </Button>
                   </Col>
-                ) : (
-                  <></>
-                )
-              ) : (
-                <></>
-              )}
-
+                )}
+              {/* investmentStart */}
               {marketplaceState === "investmentStart" &&
               isMarketplaceOwnerAccount ? (
                 <Col>
@@ -112,44 +126,40 @@ class Content extends Component {
               ) : (
                 <></>
               )}
-
+              {/* investmentStop */}
               {marketplaceState === "investmentStop" &&
-              isMarketplaceOwnerAccount ? (
-                <Col>
-                  <Button
-                    variant="primary"
-                    onClick={(e) => {
-                      startTicketSale(dispatch, marketplace, account);
-                    }}
-                    className="action-button"
-                    style={{ float: "right" }}
-                  >
-                    Start Tickets Sale
-                  </Button>
-                </Col>
-              ) : (
-                <></>
-              )}
-
+                isMarketplaceOwnerAccount && (
+                  <Col>
+                    <Button
+                      variant="primary"
+                      onClick={(e) => {
+                        startTicketSale(dispatch, marketplace, account);
+                      }}
+                      className="action-button"
+                      style={{ float: "right" }}
+                    >
+                      Start Tickets Sale
+                    </Button>
+                  </Col>
+                )}
+              {/* ticketSaleStart */}
               {marketplaceState === "ticketSaleStart" &&
-              isMarketplaceOwnerAccount ? (
-                <Col>
-                  <Button
-                    variant="primary"
-                    onClick={(e) => {
-                      startEvent(dispatch, marketplace, account);
-                    }}
-                    className="action-button"
-                    style={{ float: "right" }}
-                  >
-                    Start Event
-                  </Button>
-                </Col>
-              ) : (
-                <></>
-              )}
-
-              {marketplaceState === "eventStart" && investorUnits > 0 ? (
+                isMarketplaceOwnerAccount && (
+                  <Col>
+                    <Button
+                      variant="primary"
+                      onClick={(e) => {
+                        startEvent(dispatch, marketplace, account);
+                      }}
+                      className="action-button"
+                      style={{ float: "right" }}
+                    >
+                      Start Event
+                    </Button>
+                  </Col>
+                )}
+              {/* eventStart */}
+              {marketplaceState === "eventStart" && investorUnits > 0 && (
                 <Col>
                   <Button
                     variant="primary"
@@ -166,15 +176,12 @@ class Content extends Component {
                     Retrieve Investments
                   </Button>
                 </Col>
-              ) : (
-                <></>
               )}
             </Row>
             <Row className="add-space">
-              {/* <Col>1 of 1</Col> */}
               <Col>
-                {/* <div className="col"> */}
-                {marketplaceState === "investmentStart" ? <Invest /> : <></>}
+                {/* investmentStart */}
+                {marketplaceState === "investmentStart" && <Invest />}
               </Col>
             </Row>
 
@@ -185,13 +192,6 @@ class Content extends Component {
             </Row>
           </>
         ) : (
-          // <Spinner type="table" />
-
-          // <div>
-          //   Loading...
-          //   <Spinner type="div" />
-          // </div>
-
           <Spinner type="div" />
         )}
       </Container>

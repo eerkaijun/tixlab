@@ -1,6 +1,6 @@
 // TODO DEMO: replace owner account each time you deploy the marketplace contract
 export const MARKETPLACE_OWNER_ACCOUNT =
-  "0xEDB4400a8b1DEccc6C62DFDDBD6F73E48537012A";
+  "0x80BC2298872D8C88f0Eca80fA1a63953Ac3093F8";
 
 export const MARKETPLACE_STATES = {
   creatingTickets: 0,
