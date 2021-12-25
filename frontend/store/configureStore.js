@@ -17,13 +17,9 @@ const reducer = (state, action) => {
       ...state,
       ...action.payload,
     };
-    console.log("!!!!! return nextState;)");
     return nextState;
   } else {
-    console.log("!!!!! return rootReducer(state, action) "),
-      state,
-      action,
-      "???";
+    state, action, "???";
     return rootReducer(state, action);
   }
 };
@@ -33,24 +29,3 @@ export const initStore = () => {
 };
 
 export const wrapper = createWrapper(initStore);
-// export default function configureStore(preloadedState) {
-//   return createStore(
-//     rootReducer,
-//     preloadedState,
-//     composeEnhancers(applyMiddleware(...middleware, loggerMiddleware))
-//   );
-// }
-
-// const loggerMiddleware = createLogger();
-// const middleware = [];
-
-// // For Redux Dev Tools
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-// export default function configureStore(preloadedState) {
-//   return createStore(
-//     rootReducer,
-//     preloadedState,
-//     composeEnhancers(applyMiddleware(...middleware, loggerMiddleware))
-//   );
-// }

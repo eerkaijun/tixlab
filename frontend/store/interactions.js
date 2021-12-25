@@ -34,21 +34,17 @@ const ipfs = ipfsClient.create({
 
 const axios = require("axios");
 
-//////    new
 export const loadWeb3 = () => async (dispatch) => {
   if (window !== undefined) {
     // Modern dapp browsers...
     if (window.ethereum) {
       const web3 = new Web3(window.ethereum);
-      console.log("!!!2222web3::::::", web3);
       try {
         await window.ethereum.enable();
         dispatch(web3Loaded(web3));
-
-        console.log("!!!3333web3::::::", web3);
         return web3;
       } catch (error) {
-        console.log("!!!333error:::::", error);
+        // console.log("!!!error:::::", error);
         // User denied account access...
         alert("Please connect Metamask to the site");
       }
@@ -70,22 +66,21 @@ export const loadWeb3 = () => async (dispatch) => {
   }
 };
 
-export const loadAccount = async (web3, dispatch) => {
+export const loadAccount = (web3) => async (dispatch) => {
   const accounts = await web3.eth.getAccounts();
   const account = accounts[0];
-  // dispatch(web3AccountLoaded(account));
-  await web3AccountLoaded(account);
+  dispatch(web3AccountLoaded(account));
   return account;
 };
 
-export const loadMarketplace = async (web3, networkID, dispatch) => {
+export const loadMarketplace = (web3, networkID) => async (dispatch) => {
   try {
     const marketplace = await new web3.eth.Contract(
       Marketplace.abi,
       Marketplace.networks[networkID].address
     );
-    // dispatch(marketplaceLoaded(marketplace));
-    await marketplaceLoaded(marketplace);
+    dispatch(marketplaceLoaded(marketplace));
+
     // console.log("!!!!marketplace", marketplace);
     return marketplace;
   } catch (error) {
@@ -217,21 +212,9 @@ export const createTicket = async (
       result.path
     )
     .send({ from: account });
-  // .on("transactionHash", (hash) => {
-  //   dispatch(ticketCreating());
-  // })
-  // .on("error", (error) => {
-  //   console.log(error);
-  //   window.alert("There was an error!");
-  // });
-  console.log("!!!!Ticket created successfully!");
-  console.log("!!!!IPFS hash: ", result.path);
-
-  //const num_tickets = await marketplace.methods.getOnSaleLength().call();
-  //console.log("!!!!!num_tickets", num_tickets);
 };
 
-export const loadMarketplaceState = async (marketplace, dispatch) => {
+export const loadMarketplaceState = (marketplace) => async (dispatch) => {
   //TODO: create enum with marketplase.State
   //   enum State { creatingTickets, investmentStart, investmentStop, ticketSaleStart, eventStart }
   // 0 = creatingTickets 1 = investmentStart... etc
@@ -244,10 +227,7 @@ export const loadMarketplaceState = async (marketplace, dispatch) => {
   );
   const marketplaceState = [marketplaceStateNum, marketplaceStateStr];
 
-  // console.log("!!!!!marketplaceState ", marketplaceState);
-
-  // dispatch(marketplaceStateChanged(marketplaceState));
-  await marketplaceStateChanged(marketplaceState);
+  dispatch(marketplaceStateChanged(marketplaceState));
 };
 
 export const loadInvestorUnits = async (marketplace, account, dispatch) => {
