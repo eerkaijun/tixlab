@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
-import thinkMiddleware from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 import rootReducer from "./reducers";
 
 const bindMiddleware = (middleware) => {
@@ -11,20 +11,25 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware);
 };
 
-const reduser = (state, action) => {
+const reducer = (state, action) => {
   if (action.type == HYDRATE) {
     const nextState = {
       ...state,
       ...action.payload,
     };
+    console.log("!!!!! return nextState;)");
     return nextState;
   } else {
+    console.log("!!!!! return rootReducer(state, action) "),
+      state,
+      action,
+      "???";
     return rootReducer(state, action);
   }
 };
 
-const initStore = () => {
-  return createStore(reduser, bindMiddleware([thinkMiddleware]));
+export const initStore = () => {
+  return createStore(reducer, bindMiddleware([thunkMiddleware]));
 };
 
 export const wrapper = createWrapper(initStore);

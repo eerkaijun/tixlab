@@ -34,7 +34,8 @@ const ipfs = ipfsClient.create({
 
 const axios = require("axios");
 
-export const loadWeb3 = async (dispatch) => {
+//////    new
+export const loadWeb3 = () => async (dispatch) => {
   if (window !== undefined) {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -42,9 +43,9 @@ export const loadWeb3 = async (dispatch) => {
       console.log("!!!2222web3::::::", web3);
       try {
         await window.ethereum.enable();
-        // dispatch(web3Loaded(web3));
-        await web3Loaded(web3);
-        // console.log("!!!3333web3::::::", web3);
+        dispatch(web3Loaded(web3));
+
+        console.log("!!!3333web3::::::", web3);
         return web3;
       } catch (error) {
         console.log("!!!333error:::::", error);

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Component } from "react"; // TODO remove this after delete App class
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import {
   accountSelector,
   contractsLoadedSelector,
   isMarketplaceOwnerAccountSelector,
 } from "../store/selectors";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import {
   loadWeb3,
   loadAccount,
@@ -49,7 +53,7 @@ const loadBlockchainData = async (dispatch) => {
   await loadMarketplaceState(marketplace, dispatch);
 };
 
-function Home(props) {
+const Home = (props) => {
   // state = {
   //   web3
   //   networkId
@@ -60,10 +64,11 @@ function Home(props) {
   const [networkId, setNetworkId] = useState(4);
 
   useEffect(() => {
-    loadBlockchainData();
+    // loadBlockchainData();
+    const web3 = props.loadWeb3();
   });
   return <h1>hello from Home (former App ) function</h1>;
-}
+};
 
 class App extends Component {
   async componentWillMount() {
@@ -127,5 +132,19 @@ class App extends Component {
   }
 }
 
+export const getStaticProps = wrapper.getStaticProps((store) => () => {
+  store.dispatch(loadWeb3());
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadWeb3: bindActionCreators(loadWeb3, dispatch),
+  };
+};
+
+// export default connect(null, mapDispatchToProps)(Home);
 // export default Home;
-export default wrapper.withRedux(Home);
+// export default wrapper.withRedux(Home);
+export default connect(null, mapDispatchToProps)(wrapper.withRedux(Home));
+
+// export default wrapper.withRedux(connect(null, mapDispatchToProps)(Home));
