@@ -149,7 +149,7 @@ class Tickets extends Component {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Seat Number</th>
+                <th>Seat</th>
                 <th>Ticket Price (in ETH)</th>
                 <th>Category</th>
                 <th>Ticket ID</th>
