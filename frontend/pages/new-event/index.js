@@ -2,7 +2,7 @@ import NewEventForm from "../../components/events/NewEventForm";
 
 function NewEventPage() {
   function addEventHandler(enteredEventData) {
-    console.log(enterredEventData);
+    console.log(enteredEventData);
   }
 
   return <NewEventForm onAddEvent={addEventHandler} />;

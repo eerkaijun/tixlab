@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 
+import Layout from "../components/layout/Layout";
 import Navbar from "../components/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
@@ -10,9 +11,9 @@ const MyApp = ({ Component, pageProps, store }) => {
   return (
     <div>
       <Navbar />
-      {/* <Provider store={store}> */}
-      <Component {...pageProps} />
-      {/* </Provider> */}
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </div>
   );
 };

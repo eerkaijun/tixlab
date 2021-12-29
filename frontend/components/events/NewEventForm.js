@@ -14,7 +14,7 @@ function NewEventForm(props) {
 
     const enteredTitle = titleInputRef.current.value;
     const enteredImage = imageInputRef.current.value;
-    const enteredAddress = addressInputRef.current.value;
+    const enteredZoomLink = addressInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
 
     const eventData = {
@@ -24,7 +24,7 @@ function NewEventForm(props) {
       description: enteredDescription,
     };
 
-    props.onAddMEvent(eventData);
+    props.onAddEvent(eventData);
   }
 
   return (
