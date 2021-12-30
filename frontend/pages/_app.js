@@ -10,7 +10,7 @@ import { wrapper } from "../store/configureStore";
 const MyApp = ({ Component, pageProps, store }) => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Layout>
         <Component {...pageProps} />
       </Layout>
