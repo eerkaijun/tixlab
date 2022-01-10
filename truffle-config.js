@@ -1,57 +1,16 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+// const keys =  require("./keys.json")
 const fs = require("fs");
 const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
-  /**
-   * Networks define how you connect to your ethereum client and let you set the
-   * defaults web3 uses to send transactions. If you don't specify one truffle
-   * will spin up a development blockchain for you on port 9545 when you
-   * run `develop` or `test`. You can ask a truffle command to use a specific
-   * network from the command line, e.g
-   *
-   * $ truffle test --network <network-name>
-   */
-
+  contracts_build_directory: "./public/contracts",
   networks: {
     development: {
-      host: "127.0.0.1", // Localhost (default: none)
-      port: 7545, // Standard Ethereum port (default: none)
-      network_id: "*", // Any network (default: none)
+      host: "127.0.0.1",
+      port: 7545,
+      network_id: "*",
     },
-
-    // Another network with more advanced options...
-    // advanced: {
-    // port: 8777,             // Custom port
-    // network_id: 1342,       // Custom network
-    // gas: 8500000,           // Gas sent with each transaction (default: ~6700000)
-    // gasPrice: 20000000000,  // 20 gwei (in wei) (default: 100 gwei)
-    // from: <address>,        // Account to send txs from (default: accounts[0])
-    // websockets: true        // Enable EventEmitter interface for web3 (default: false)
-    // },
-
-    goerli: {
-      provider: () =>
-        new HDWalletProvider(
-          mnemonic,
-          `https://goerli.infura.io/v3/3275f4ffdd0d4b3e8ac104b1bd78007d`
-        ),
-      network_id: 5,
-      gas: 5500000,
-      confirmations: 2,
-      timeoutBlocks: 200,
-      skipDryRun: true,
-    },
-
-    rinkeby: {
-      provider: () =>
-        new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/3275f4ffdd0d4b3e8ac104b1bd78007d`),
-      network_id: 4,
-      confirmations: 2,
-      timeoutBlocks: 200,
-      skipDryRun: true,
-    },
-
     ropsten: {
       provider: () =>
         new HDWalletProvider(
@@ -64,16 +23,14 @@ module.exports = {
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
     },
-
-    matic: {
+    rinkeby: {
       provider: () =>
-        new HDWalletProvider(mnemonic, `https://rpc-mumbai.maticvigil.com`),
-      network_id: 80001,
+        new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/3275f4ffdd0d4b3e8ac104b1bd78007d`),
+      network_id: 4,
       confirmations: 2,
       timeoutBlocks: 200,
       skipDryRun: true,
     },
-
     shibuya: {
       provider: () =>
         new HDWalletProvider(
@@ -85,34 +42,30 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true,
     },
-
-    // Useful for private networks
-    // private: {
-    // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
-    // network_id: 2111,   // This network is yours, in the cloud.
-    // production: true    // Treats this network as if it was a public net. (default: false)
-    // }
   },
-
-  // Set default mocha options here, use special reporters etc.
-  mocha: {
-    // timeout: 100000
-  },
-
-  plugins: ["solidity-coverage"],
-
-  // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.7", // Fetch exact version from solc-bin (default: truffle's version)
-      // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
-      // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      //  optimizer: {
-      //    enabled: false,
-      //    runs: 200
-      //  },
-      //  evmVersion: "byzantium"
-      // }
+      version: "0.8.4",
     },
   },
 };
+
+// BASE FEE (determnd by ethereum) => 39.791392694
+
+// Max Priority Fee Per Gas(tip) => 2
+
+// GAS PRICE = BASE FEE + TIP => 41.791392694
+
+// GAS USED 21000
+
+// Transaction Fee = GAS USED * GAS PRICE =
+//                   41.791392694 * 21000
+
+// BURNT FEE => BASE FEE * GAS USED
+//           39.791392694 * 21000
+
+// REST TO MINER => TIP * GAS USED
+//                   2  * 21000
+
+// NEXT_PUBLIC_TARGET_CHAIN_ID=1337
+// NEXT_PUBLIC_NETWORK_ID=5777
