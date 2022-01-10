@@ -1,0 +1,65 @@
+[
+  {
+    "id": "0",
+    "slug": "first-event",
+    "title": "The First Event",
+    "description": "The description of the First Event",
+    "coverImage": "https://gamedata.britishcouncil.org/sites/default/files/attachment/number-1_1.jpg",
+    "beginDate": "27-02-2022 17:45CET",
+    "zoomLink": "https://us05web.zoom.us/j/83901286433?pwd=Qnlvd2JwWHVJSWQrZHBRNXR5NDBCZz09",
+    "zoomInvitation": "Maria Ma is inviting you to a scheduled Zoom meeting.\n\nTopic: My Meeting\nTime: Feb 27, 2022 05:45 PM Kiev\n\nJoin Zoom Meeting\n\nhttps://us05web.zoom.us/j/88609597660?pwd=WmlYc2tRSnd1VGYzMThvTVlDQTNNQT09\n\nMeeting ID: 886 0959 7660\nPasscode: NzjSB5",
+    "type": "Encode Accelerator",
+    "price": "0.01",
+    "author": "Maria",
+    "link": "https://google.com",
+
+    "wsl": [
+      "Build Next JS apps on your own",
+      "Build ecommerce apps with modern technologies",
+      "Use Shopify to your advantage"
+    ],
+    "createdAt": ""
+  },
+  {
+    "id": "1",
+    "slug": "second-event",
+    "title": "The Second Event",
+    "description": "The description of the Second Event",
+    "coverImage": "https://gamedata.britishcouncil.org/sites/default/files/attachment/number-2_1.jpg",
+    "beginDate": "27-02-2023 17:45CET",
+    "zoomLink": "https://us05web.zoom.us/j/83901286433?pwd=Qnlvd2JwWHVJSWQrZHBRNXR5NDBCZz09",
+    "zoomInvitation": "Maria Ma is inviting you to a scheduled Zoom meeting.\n\nTopic: My Meeting\nTime: Feb 27, 2022 05:45 PM Kiev\n\nJoin Zoom Meeting\n\nhttps://us05web.zoom.us/j/88609597660?pwd=WmlYc2tRSnd1VGYzMThvTVlDQTNNQT09\n\nMeeting ID: 886 0959 7660\nPasscode: NzjSB5",
+    "type": "Football",
+    "price": "2",
+    "author": "Kai",
+    "link": "https://google.com",
+
+    "wsl": [
+      "Build Next JS apps on your own",
+      "Build ecommerce apps with modern technologies",
+      "Use Shopify to your advantage"
+    ],
+    "createdAt": ""
+  },
+  {
+    "id": "2",
+    "slug": "third-event",
+    "title": "The Third Event",
+    "description": "The description of the Third Event",
+    "coverImage": "https://gamedata.britishcouncil.org/sites/default/files/attachment/number-3_4.jpg",
+    "beginDate": "27-02-2024 17:45CET",
+    "zoomLink": "https://us05web.zoom.us/j/83901286433?pwd=Qnlvd2JwWHVJSWQrZHBRNXR5NDBCZz09",
+    "zoomInvitation": "Maria Ma is inviting you to a scheduled Zoom meeting.\n\nTopic: My Meeting\nTime: Feb 27, 2022 05:45 PM Kiev\n\nJoin Zoom Meeting\n\nhttps://us05web.zoom.us/j/88609597660?pwd=WmlYc2tRSnd1VGYzMThvTVlDQTNNQT09\n\nMeeting ID: 886 0959 7660\nPasscode: NzjSB5",
+    "type": "Discord",
+    "price": "3",
+    "author": "Kai",
+    "link": "https://google.com",
+
+    "wsl": [
+      "Build Next JS apps on your own",
+      "Build ecommerce apps with modern technologies",
+      "Use Shopify to your advantage"
+    ],
+    "createdAt": ""
+  }
+]
