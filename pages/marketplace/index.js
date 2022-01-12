@@ -129,6 +129,7 @@ export default function Marketplace({ courses }) {
   return (
     <>
       <MarketHeader />
+
       <EventList courses={courses}>
         {(course) => {
           const owned = ownedCourses.lookup[course.id];
