@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimateKeyframes } from "react-simple-animate";
+import { getDateObject, getFormattedDate } from "@utils/dates";
 
 export default function Card({ course, disabled, Footer, state }) {
   return (
@@ -44,6 +45,18 @@ export default function Card({ course, disabled, Footer, state }) {
                   </div>
                 </AnimateKeyframes>
               )}
+              {true && (
+                // <AnimateKeyframes
+                //   play
+                //   duration={2}
+                //   keyframes={["opacity: 0.2", "opacity: 1"]}
+                //   iterationCount="infinite"
+                // >
+                <div className="text-xs text-black bg-yellow-200 p-1 px-3 rounded-full">
+                  Pending
+                </div>
+                // </AnimateKeyframes>
+              )}
             </div>
           </div>
 
@@ -53,7 +66,8 @@ export default function Card({ course, disabled, Footer, state }) {
             </a>
           </Link>
           <p className="mt-2 mb-4 text-sm sm:text-base text-gray-500">
-            {course.beginDate}
+            {/* {course.beginDate} */}
+            {getFormattedDate(course.beginDate)}
           </p>
           <p className="mt-2 mb-4 text-sm sm:text-base text-gray-500">
             {course.description.substring(0, 70)}...

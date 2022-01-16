@@ -28,8 +28,6 @@ export default function Marketplace({ courses }) {
 
   return (
     <>
-      <MarketHeader />
-
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSekC3jJHuZmlcFJJGriPRiSvf6BLgFxjJCgIqqdQ3rynTwyJQ/viewform?embedded=true"
         width="640"
