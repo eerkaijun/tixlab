@@ -27,7 +27,7 @@ export default function Course({ course }) {
           image={course.coverImage}
         />
       </div>
-      <Keypoints points={course.wsl} />
+      {/* <Keypoints points={course.wsl} />
       {courseState && (
         <div className="max-w-5xl mx-auto">
           {courseState === "purchased" && (
@@ -59,7 +59,7 @@ export default function Course({ course }) {
         isLoading={isLoading}
         locked={isLocked}
         courseState={courseState}
-      />
+      /> */}
       <Modal />
     </>
   );

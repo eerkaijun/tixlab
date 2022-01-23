@@ -9,6 +9,14 @@ import { MarketHeader } from "@components/ui/marketplace";
 import { useWeb3 } from "@components/providers";
 import { withToast } from "@utils/toast";
 
+import { create } from "ipfs-http-client";
+
+const ipfs = create({
+  host: "ipfs.infura.io",
+  port: "5001",
+  protocol: "https",
+});
+
 export default function Marketplace({ courses }) {
   const { web3, contract, requireInstall } = useWeb3();
   const { hasConnectedWallet, isConnecting, account } = useWalletInfo();
@@ -23,48 +31,22 @@ export default function Marketplace({ courses }) {
 
     setBusyCourseId(course.id);
     withToast(_purchaseCourse({ value }, course));
-
-    // const hexCourseId = web3.utils.utf8ToHex(course.id);
-    // const orderHash = web3.utils.soliditySha3(
-    //   { type: "bytes16", value: hexCourseId },
-    //   { type: "address", value: account.data }
-    // );
-
-    // const value = web3.utils.toWei(String(order.price));
-
-    // setBusyCourseId(course.id);
-    // if (isNewPurchase) {
-    //   const emailHash = web3.utils.sha3(order.email);
-    //   const proof = web3.utils.soliditySha3(
-    //     { type: "bytes32", value: emailHash },
-    //     { type: "bytes32", value: orderHash }
-    //   );
-
-    //   withToast(_purchaseCourse({ hexCourseId, proof, value }, course));
-    // } else {
-    //   withToast(_repurchaseCourse({ courseHash: orderHash, value }, course));
-    // }
   };
 
   const _purchaseCourse = async ({ hexCourseId, proof, value }, course) => {
     try {
+      // try {
+      //   const ticketURI = await createTicket();
+      // } catch (error) {
+      //   throw new Error(error.message);
+      // }
+      const ticketURI = await createTicket();
+
       const result = await contract.methods
+        // .buyTicket(course.id, ticketURI)
         .buyTicket(course.id)
         .send({ from: account.data, value: value });
-      // const result = await contract.methods
-      //   .purchaseCourse(hexCourseId, proof)
-      //   .send({ from: account.data, value });
 
-      // ownedCourses.mutate([
-      //   ...ownedCourses.data,
-      //   {
-      //     ...course,
-      //     proof,
-      //     state: "purchased",
-      //     owner: account.data,
-      //     price: value,
-      //   },
-      // ]);
       return result;
     } catch (error) {
       throw new Error(error.message);
@@ -73,27 +55,71 @@ export default function Marketplace({ courses }) {
     }
   };
 
-  const _repurchaseCourse = async ({ courseHash, value }, course) => {
-    try {
-      const result = await contract.methods
-        .repurchaseCourse(courseHash)
-        .send({ from: account.data, value });
+  //
+  //
+  //
+  //
 
-      const index = ownedCourses.data.findIndex((c) => c.id === course.id);
+  const createTicket = async () => {
+    let price = "3";
+    let seat = "23";
+    let category = "0";
 
-      if (index >= 0) {
-        ownedCourses.data[index].state = "purchased";
-        ownedCourses.mutate(ownedCourses.data);
-      } else {
-        ownedCourses.mutate();
-      }
-      return result;
-    } catch (error) {
-      throw new Error(error.message);
-    } finally {
-      setBusyCourseId(null);
-    }
+    let ticketText = `<tspan x="50%" dy="1.2em">Seat: ${seat}</tspan>
+
+    <tspan x="50%" dy="1.2em">Price: ${price} </tspan>`;
+
+    let encodedString = Buffer.from(
+      `<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">
+  <style>.base { fill: white; font-family: serif; font-size: 14px; }</style>
+  <rect width="100%" height="100%" fill="green" />
+  <text x="50%" y="40%" class="base" dominant-baseline="middle" text-anchor="middle">${ticketText}</text>
+</svg>`
+    ).toString("base64");
+    let metadata = {
+      seat_number: seat,
+      ticket_category: category,
+      ticket_value: price,
+      attributes: [
+        // {
+        //   trait_type: "Breed",
+        //   value: "Maltipoo",
+        // },
+        // {
+        //   trait_type: "Eye color",
+        //   value: "Mocha",
+        // },
+      ],
+      description: `DApp Marketplace. Ticket seat# ${seat}`,
+      image:
+        // "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaW5ZTWluIG1lZXQiIHZpZXdCb3g9IjAgMCAzNTAgMzUwIj4KICAgIDxzdHlsZT4uYmFzZSB7IGZpbGw6IHdoaXRlOyBmb250LWZhbWlseTogc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgfTwvc3R5bGU+CiAgICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJibGFjayIgLz4KICAgIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBjbGFzcz0iYmFzZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RXBpY0xvcmRIYW1idXJnZXI8L3RleHQ+Cjwvc3ZnPg==",
+        `data:image/svg+xml;base64,${encodedString}`,
+      name: `Ticket seat# ${seat}`,
+    };
+
+    let result = await ipfs.add(JSON.stringify(metadata));
+
+    console.log("!!!!IPFS hash: ", result.path);
+
+    // await marketplace.methods
+    //   .createTicket(
+    //     web3.utils.toWei(price, "ether"),
+    //     web3.utils.toWei(maxPrice.toString(), "ether"),
+    //     result.path
+    //   )
+    //   .send({ from: account });
+
+    console.log("!!!!Ticket created successfully!");
+    console.log("!!!!IPFS hash: ", result.path);
+    return result.path;
+
+    // https://ipfs.infura.io/ipfs/QmVRurswfJ9fqTbfeAgVuHgdjQMH9TQGkN1P43wyyrS2S6
   };
+
+  //
+  //
+  //
+  //
 
   const cleanupModal = () => {
     setSelectedCourse(null);
@@ -103,6 +129,7 @@ export default function Marketplace({ courses }) {
   return (
     <>
       <MarketHeader />
+
       <EventList courses={courses}>
         {(course) => {
           const owned = ownedCourses.lookup[course.id];
@@ -113,6 +140,18 @@ export default function Marketplace({ courses }) {
               state={owned?.state}
               disabled={!hasConnectedWallet}
               Footer={() => {
+                // return (
+                //   <Button
+                //     variant="white"
+                //     size="sm"
+                //     onClick={() => {
+                //       createTicket();
+                //     }}
+                //   >
+                //     Create Ticket
+                //   </Button>
+                // );
+
                 if (requireInstall) {
                   return (
                     <Button size="sm" disabled={true} variant="lightPurple">

@@ -20,6 +20,11 @@ export default function Navbar() {
                   Events
                 </a>
               </ActiveLink>
+              <ActiveLink href="/request-event">
+                <a className="font-medium mr-8 text-gray-500 hover:text-gray-900">
+                  Request Your Event
+                </a>
+              </ActiveLink>
             </div>
             <div className="text-center">
               {isLoading ? (

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getDateObject, getFormattedDate } from "@utils/dates";
 
 const STATE_COLORS = {
   purchased: "indigo",
@@ -21,10 +22,40 @@ export default function OwnedEventCard({ children, course }) {
               width="45"
               height="45"
               layout="responsive"
+              alt={course.title}
             />
           </div>
         </div>
         <div className="flex-4">
+          {/*
+           */}
+
+          <div className="flex items-center">
+            <div className="uppercase mr-2 tracking-wide text-sm text-indigo-500 font-semibold">
+              {course.type}
+            </div>
+
+            <div>
+              {getDateObject(course.beginDate) < Date.now() && (
+                <div className="text-xs text-black bg-yellow-200 p-1 px-3 rounded-full">
+                  Passed
+                </div>
+              )}
+            </div>
+            <div>
+              {getDateObject(course.beginDate) >= Date.now() && (
+                <div className="text-xs text-black bg-blue-200 p-1 px-3 rounded-full">
+                  Upcoming
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 
+
+
+
+           */}
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               <span className="mr-2">{course.title}</span>
@@ -40,6 +71,9 @@ export default function OwnedEventCard({ children, course }) {
           </div>
 
           <div className="border-t border-gray-200">
+            <p className="mt-2 mb-4 text-sm sm:text-base text-gray-500">
+              {getFormattedDate(course.beginDate)}
+            </p>
             <dl>
               <div className="bg-gray-50 px-4 py-5  sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
