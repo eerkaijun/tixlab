@@ -45,7 +45,7 @@ export default function Card({ course, disabled, Footer, state }) {
                   </div>
                 </AnimateKeyframes>
               )}
-              {true && (
+              {/* {true && (
                 // <AnimateKeyframes
                 //   play
                 //   duration={2}
@@ -56,7 +56,7 @@ export default function Card({ course, disabled, Footer, state }) {
                   Pending
                 </div>
                 // </AnimateKeyframes>
-              )}
+              )} */}
             </div>
           </div>
 
