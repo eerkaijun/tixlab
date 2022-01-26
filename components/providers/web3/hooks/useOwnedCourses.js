@@ -6,7 +6,6 @@ export const handler = (web3, contract) => (courses, account) => {
   const swrRes = useSWR(
     () => (web3 && contract && account ? `web3/ownedCourses/${account}` : null),
     async () => {
-      console.log("!!!ownedCourses begins....");
       const ownedCourses = [];
       for (let i = 0; i < courses.length; i++) {
         const course = courses[i];
@@ -24,7 +23,6 @@ export const handler = (web3, contract) => (courses, account) => {
           continue;
         }
       }
-      console.log("!!!ownedCourses ends....");
       return ownedCourses;
     }
   );
