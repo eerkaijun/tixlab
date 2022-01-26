@@ -632,45 +632,19 @@
   "ast": {
     "absolutePath": "/Users/mm-mac/Desktop/mm-projects-blockchain/kaijun-ticketing/tixlab/tixlab/contracts/Market.sol",
     "exportedSymbols": {
-      "Address": [
-        2402
-      ],
-      "Context": [
-        2424
-      ],
-      "ERC165": [
-        2651
-      ],
-      "ERC721": [
-        1816
-      ],
-      "ERC721URIStorage": [
-        2078
-      ],
-      "IERC165": [
-        2663
-      ],
-      "IERC721": [
-        1932
-      ],
-      "IERC721Metadata": [
-        2105
-      ],
-      "IERC721Receiver": [
-        1950
-      ],
-      "Market": [
-        847
-      ],
-      "Ownable": [
-        985
-      ],
-      "SafeMath": [
-        2975
-      ],
-      "Strings": [
-        2627
-      ]
+      "Address": [2402],
+      "Context": [2424],
+      "ERC165": [2651],
+      "ERC721": [1816],
+      "ERC721URIStorage": [2078],
+      "IERC165": [2663],
+      "IERC721": [1932],
+      "IERC721Metadata": [2105],
+      "IERC721Receiver": [1950],
+      "Market": [847],
+      "Ownable": [985],
+      "SafeMath": [2975],
+      "Strings": [2627]
     },
     "id": 848,
     "license": "MIT",
@@ -678,12 +652,7 @@
     "nodes": [
       {
         "id": 492,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:1"
       },
@@ -756,15 +725,7 @@
         "fullyImplemented": true,
         "id": 847,
         "linearizedBaseContracts": [
-          847,
-          2078,
-          1816,
-          2105,
-          1932,
-          2651,
-          2663,
-          985,
-          2424
+          847, 2078, 1816, 2105, 1932, 2651, 2663, 985, 2424
         ],
         "name": "Market",
         "nameLocation": "258:6:1",
@@ -1562,9 +1523,7 @@
             "visibility": "private"
           },
           {
-            "baseFunctions": [
-              1202
-            ],
+            "baseFunctions": [1202],
             "body": {
               "id": 575,
               "nodeType": "Block",
@@ -2437,9 +2396,7 @@
                   },
                   "id": 647,
                   "initializationExpression": {
-                    "assignments": [
-                      628
-                    ],
+                    "assignments": [628],
                     "declarations": [
                       {
                         "constant": false,
@@ -2835,9 +2792,7 @@
               "src": "2065:173:1",
               "statements": [
                 {
-                  "assignments": [
-                    674
-                  ],
+                  "assignments": [674],
                   "declarations": [
                     {
                       "constant": false,
@@ -3000,10 +2955,7 @@
                       "id": 679,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2127:7:1",
                       "typeDescriptions": {
@@ -3166,9 +3118,7 @@
               "src": "2290:171:1",
               "statements": [
                 {
-                  "assignments": [
-                    702
-                  ],
+                  "assignments": [702],
                   "declarations": [
                     {
                       "constant": false,
@@ -3331,10 +3281,7 @@
                       "id": 707,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2352:7:1",
                       "typeDescriptions": {
@@ -3627,9 +3574,7 @@
               "src": "2708:561:1",
               "statements": [
                 {
-                  "assignments": [
-                    744
-                  ],
+                  "assignments": [744],
                   "declarations": [
                     {
                       "constant": false,
@@ -3792,10 +3737,7 @@
                       "id": 749,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2842:7:1",
                       "typeDescriptions": {
@@ -3823,9 +3765,7 @@
                   "src": "2842:47:1"
                 },
                 {
-                  "assignments": [
-                    758
-                  ],
+                  "assignments": [758],
                   "declarations": [
                     {
                       "constant": false,
@@ -3957,10 +3897,7 @@
                       "id": 762,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2952:7:1",
                       "typeDescriptions": {
@@ -3988,9 +3925,7 @@
                   "src": "2952:46:1"
                 },
                 {
-                  "assignments": [
-                    770
-                  ],
+                  "assignments": [770],
                   "declarations": [
                     {
                       "constant": false,
@@ -4989,45 +4924,19 @@
   "legacyAST": {
     "absolutePath": "/Users/mm-mac/Desktop/mm-projects-blockchain/kaijun-ticketing/tixlab/tixlab/contracts/Market.sol",
     "exportedSymbols": {
-      "Address": [
-        2402
-      ],
-      "Context": [
-        2424
-      ],
-      "ERC165": [
-        2651
-      ],
-      "ERC721": [
-        1816
-      ],
-      "ERC721URIStorage": [
-        2078
-      ],
-      "IERC165": [
-        2663
-      ],
-      "IERC721": [
-        1932
-      ],
-      "IERC721Metadata": [
-        2105
-      ],
-      "IERC721Receiver": [
-        1950
-      ],
-      "Market": [
-        847
-      ],
-      "Ownable": [
-        985
-      ],
-      "SafeMath": [
-        2975
-      ],
-      "Strings": [
-        2627
-      ]
+      "Address": [2402],
+      "Context": [2424],
+      "ERC165": [2651],
+      "ERC721": [1816],
+      "ERC721URIStorage": [2078],
+      "IERC165": [2663],
+      "IERC721": [1932],
+      "IERC721Metadata": [2105],
+      "IERC721Receiver": [1950],
+      "Market": [847],
+      "Ownable": [985],
+      "SafeMath": [2975],
+      "Strings": [2627]
     },
     "id": 848,
     "license": "MIT",
@@ -5035,12 +4944,7 @@
     "nodes": [
       {
         "id": 492,
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".0"
-        ],
+        "literals": ["solidity", "^", "0.8", ".0"],
         "nodeType": "PragmaDirective",
         "src": "33:23:1"
       },
@@ -5113,15 +5017,7 @@
         "fullyImplemented": true,
         "id": 847,
         "linearizedBaseContracts": [
-          847,
-          2078,
-          1816,
-          2105,
-          1932,
-          2651,
-          2663,
-          985,
-          2424
+          847, 2078, 1816, 2105, 1932, 2651, 2663, 985, 2424
         ],
         "name": "Market",
         "nameLocation": "258:6:1",
@@ -5919,9 +5815,7 @@
             "visibility": "private"
           },
           {
-            "baseFunctions": [
-              1202
-            ],
+            "baseFunctions": [1202],
             "body": {
               "id": 575,
               "nodeType": "Block",
@@ -6794,9 +6688,7 @@
                   },
                   "id": 647,
                   "initializationExpression": {
-                    "assignments": [
-                      628
-                    ],
+                    "assignments": [628],
                     "declarations": [
                       {
                         "constant": false,
@@ -7192,9 +7084,7 @@
               "src": "2065:173:1",
               "statements": [
                 {
-                  "assignments": [
-                    674
-                  ],
+                  "assignments": [674],
                   "declarations": [
                     {
                       "constant": false,
@@ -7357,10 +7247,7 @@
                       "id": 679,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2127:7:1",
                       "typeDescriptions": {
@@ -7523,9 +7410,7 @@
               "src": "2290:171:1",
               "statements": [
                 {
-                  "assignments": [
-                    702
-                  ],
+                  "assignments": [702],
                   "declarations": [
                     {
                       "constant": false,
@@ -7688,10 +7573,7 @@
                       "id": 707,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2352:7:1",
                       "typeDescriptions": {
@@ -7984,9 +7866,7 @@
               "src": "2708:561:1",
               "statements": [
                 {
-                  "assignments": [
-                    744
-                  ],
+                  "assignments": [744],
                   "declarations": [
                     {
                       "constant": false,
@@ -8149,10 +8029,7 @@
                       "id": 749,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2842:7:1",
                       "typeDescriptions": {
@@ -8180,9 +8057,7 @@
                   "src": "2842:47:1"
                 },
                 {
-                  "assignments": [
-                    758
-                  ],
+                  "assignments": [758],
                   "declarations": [
                     {
                       "constant": false,
@@ -8314,10 +8189,7 @@
                       "id": 762,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        4294967278,
-                        4294967278
-                      ],
+                      "overloadedDeclarations": [4294967278, 4294967278],
                       "referencedDeclaration": 4294967278,
                       "src": "2952:7:1",
                       "typeDescriptions": {
@@ -8345,9 +8217,7 @@
                   "src": "2952:46:1"
                 },
                 {
-                  "assignments": [
-                    770
-                  ],
+                  "assignments": [770],
                   "declarations": [
                     {
                       "constant": false,
@@ -9351,7 +9221,7 @@
     "4": {
       "events": {},
       "links": {},
-      "address": "0x2765fA39fC1d46C9e4ea3D136D1B82F0684FDBEa",
+      "address": "0x9C47E40321BFd3a12C75461b5De5Ecf58232d80e",
       "transactionHash": "0x6515248c1d881cd64ecbaa9ccf6eb680328304e100d511f556b69d2ddd979321"
     },
     "5777": {
@@ -9496,12 +9366,12 @@
         }
       },
       "links": {},
-      "address": "0x19fE9D542Db066342Dfa50299ECE928c56a0F5eD",
-      "transactionHash": "0xb2d61d89f1976d3ae97f552c0cb35fac523115d2f4a2d5a5a9362a405bcf2982"
+      "address": "0xF6B2Fc546fD668Feb305074b4c7E708435BE7282",
+      "transactionHash": "0x10631576320b2c4266b1850580fa074afbf47c05f45f9f7d4a78816a8c427cfc"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2022-01-12T15:00:38.780Z",
+  "updatedAt": "2022-01-26T10:58:53.437Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

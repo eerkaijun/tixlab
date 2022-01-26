@@ -47,6 +47,16 @@ export default function Marketplace({ courses }) {
         .buyTicket(course.id)
         .send({ from: account.data, value: value });
 
+      ownedCourses.mutate([
+        ...ownedCourses.data,
+        {
+          ...course,
+          state: "purchased",
+          owner: account.data,
+          price: value,
+        },
+      ]);
+
       return result;
     } catch (error) {
       throw new Error(error.message);
