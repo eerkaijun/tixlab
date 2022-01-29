@@ -1,121 +1,92 @@
 // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
-pragma solidity ^0.8.0;
-
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract Market is Ownable, ERC721URIStorage{
+contract Market is ERC1155, Ownable {
 
-  using SafeMath for uint;
+    using SafeMath for uint;
 
-  enum State { ticketSaleNotStarted, ticketSaleStarted, ticketSaleEnded }
+    constructor() ERC1155("https://game.example/api/item/{id}.json") {
 
-  Event[] public events;
-  mapping (uint256 => address[]) public attendees;
+    }
 
-  struct Event {
-      uint256 eventID;
-      address organiser;
-      State currentState;
-      uint256 totalTicket;
-      uint256 ticketPrice;
-      uint256 firstTicketID; 
-      uint256 currentTicketID;
-      uint256 lastTicketID;
-  }
+    enum State { ticketSaleNotStarted, ticketSaleStarted, ticketSaleEnded }
 
-  uint256 private _currentEventId = 0;
-  uint256 private _currentTokenId = 0;
-  mapping (address => uint256) balances;
-  string private _base;
+    Event[] public events;
+    mapping (uint256 => address[]) public attendees;
 
-  constructor() ERC721("NFT Tickets", "TIX") {
-      _setBaseURI("https://ipfs.infura.io/ipfs/");
-  }
+    struct Event {
+        uint256 eventID;
+        address organiser;
+        State currentState;
+        uint256 totalTicket;
+        uint256 ticketPrice;
+        string  initialTokenURI;
+    }
 
-  function _setBaseURI(string memory _uri) private {
-      _base = _uri;
-  }
+    uint256 private _currentEventId = 0;
+    mapping (address => uint256) public balances;
 
-  function _baseURI() internal view override returns (string memory) {
-      return _base;
-  }
+    function createEvent(uint256 _numTickets, uint256 _price, string  memory _tokenURI) public {
+        events.push(Event(
+            _currentEventId, 
+            msg.sender, 
+            State.ticketSaleNotStarted, 
+            _numTickets, 
+            _price,
+            _tokenURI));
+        _mint(msg.sender, _currentEventId, _numTickets, "");
+        emit eventCreated(_currentEventId, _numTickets, _price);
+        _incrementEventId();
+    }
 
-  function createEvent(uint256 _numTickets, uint256 _price) public {
-      events.push(Event(
-          _currentEventId, 
-          msg.sender, 
-          State.ticketSaleNotStarted, 
-          _numTickets, 
-          _price,
-          _currentTokenId,
-          _currentTokenId,
-          _currentTokenId.add(_numTickets).sub(1)));
-      createTickets(_numTickets);
-      emit eventCreated(_currentEventId, _numTickets, _price);
-      _incrementEventId();
-  }
+    // event organiser can withdraw funds from ticket sales
+    function withdraw() public {
+        payable(msg.sender).transfer(balances[msg.sender]);
+        balances[msg.sender] = 0;
+    }
 
-  function createTickets(uint256 _num) private returns(bool) {
-      for (uint i=0; i<_num; i++) {
-          _mint(msg.sender, _currentTokenId); 
-          //_setTokenURI(_currentTokenId, _tokenURI);
-          _incrementTokenId();
-      }
-      return true;
-  }
+    function startTicketSale(uint256 _eventId) public {
+        Event storage selectedEvent = events[_eventId];
+        require(msg.sender == selectedEvent.organiser);
+        selectedEvent.currentState = State.ticketSaleStarted;
+    }
 
-  // event organiser can withdraw funds from ticket sales
-  function withdraw() public {
-      payable(msg.sender).transfer(balances[msg.sender]);
-  }
+    function endTicketSale(uint256 _eventId) public {
+        Event storage selectedEvent = events[_eventId];
+        require(msg.sender == selectedEvent.organiser);
+        selectedEvent.currentState = State.ticketSaleEnded;
+    }
 
-  function startTicketSale(uint256 _eventId) public {
-      Event storage selectedEvent = events[_eventId];
-      require(msg.sender == selectedEvent.organiser);
-      selectedEvent.currentState = State.ticketSaleStarted;
-  }
+    function _incrementEventId() private {
+        _currentEventId++;
+    }
 
-  function endTicketSale(uint256 _eventId) public {
-      Event storage selectedEvent = events[_eventId];
-      require(msg.sender == selectedEvent.organiser);
-      selectedEvent.currentState = State.ticketSaleEnded;
-  }
+    // this function should be called by the buyer
+    function buyTicket(uint256 _eventId, uint256 _amount) public payable {
+        Event storage selectedEvent = events[_eventId];
+        //require(selectedEvent.currentState == State.ticketSaleStarted);
+        require(msg.value >= _amount.mul(selectedEvent.ticketPrice));
+        address seller = selectedEvent.organiser;
+        balances[seller] += msg.value;
+        attendees[_eventId].push(msg.sender);
+        _safeTransferFrom(seller, msg.sender, _eventId, _amount, "");
+        emit ticketTransferred(_eventId, _amount, msg.sender);
+    }
 
-  function _incrementTokenId() private {
-      _currentTokenId++;
-  }
+    function getEventsLength() public view returns(uint) {
+        return events.length;
+    }
 
-  function _incrementEventId() private {
-      _currentEventId++;
-  }
+    function getAttendeesLength(uint256 _eventId) public view returns(uint) {
+        return attendees[_eventId].length;
+    }
 
-  // this function should be called by the buyer
-  function buyTicket(uint256 _eventId) public payable {
-      Event storage selectedEvent = events[_eventId];
-      //require(selectedEvent.currentState == State.ticketSaleStarted);
-      require(msg.value >= selectedEvent.ticketPrice);
-      uint256 tokenId = selectedEvent.currentTicketID;
-      require(tokenId <= selectedEvent.lastTicketID);
-      address seller = ownerOf(tokenId);
-      balances[seller] += msg.value;
-      attendees[_eventId].push(msg.sender);
-      _safeTransfer(seller, msg.sender, tokenId, "");
-      selectedEvent.currentTicketID++;
-      emit ticketTransferred(tokenId, msg.sender);
-  }
-
-  function getEventsLength() public view returns(uint) {
-      return events.length;
-  }
-
-  function getAttendeesLength(uint256 _eventId) public view returns(uint) {
-      return attendees[_eventId].length;
-  }
-
-  event ticketTransferred(uint256 _id, address _owner); //show the address of new owner
-  event eventCreated(uint256 _id, uint256 _numTickets, uint256 _price);
+    event ticketTransferred(uint256 _id, uint256 _numTickets, address _owner); //show the address of new owner
+    event eventCreated(uint256 _id, uint256 _numTickets, uint256 _price);
 
 }
