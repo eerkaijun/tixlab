@@ -25,7 +25,10 @@ module.exports = {
     },
     rinkeby: {
       provider: () =>
-        new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/3275f4ffdd0d4b3e8ac104b1bd78007d`),
+        new HDWalletProvider(
+          mnemonic,
+          `https://rinkeby.infura.io/v3/3275f4ffdd0d4b3e8ac104b1bd78007d`
+        ),
       network_id: 4,
       confirmations: 2,
       timeoutBlocks: 200,
@@ -45,7 +48,7 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "0.8.4",
+      version: "0.8.7",
     },
   },
 };

@@ -43,8 +43,8 @@ export default function Marketplace({ courses }) {
       const ticketURI = await createTicket();
 
       const result = await contract.methods
-        // .buyTicket(course.id, ticketURI)
-        .buyTicket(course.id)
+        .buyTicket(course.id, ticketURI)
+        // .buyTicket(course.id)
         .send({ from: account.data, value: value });
 
       ownedCourses.mutate([
@@ -71,45 +71,35 @@ export default function Marketplace({ courses }) {
   //
 
   const createTicket = async () => {
-    let price = "3";
-    let seat = "23";
+    let price = "777";
+    let zoomLink = "your event zoom link";
     let category = "0";
 
-    let ticketText = `<tspan x="50%" dy="1.2em">Seat: ${seat}</tspan>
+    let ticketText = `<tspan x="50%" dy="1.2em">Event kink: ${zoomLink}</tspan>
 
     <tspan x="50%" dy="1.2em">Price: ${price} </tspan>`;
 
     let encodedString = Buffer.from(
       `<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">
   <style>.base { fill: white; font-family: serif; font-size: 14px; }</style>
-  <rect width="100%" height="100%" fill="green" />
+  <rect width="100%" height="100%" fill="yellow" />
   <text x="50%" y="40%" class="base" dominant-baseline="middle" text-anchor="middle">${ticketText}</text>
 </svg>`
     ).toString("base64");
     let metadata = {
-      seat_number: seat,
+      zoom_link: zoomLink,
       ticket_category: category,
       ticket_value: price,
-      attributes: [
-        // {
-        //   trait_type: "Breed",
-        //   value: "Maltipoo",
-        // },
-        // {
-        //   trait_type: "Eye color",
-        //   value: "Mocha",
-        // },
-      ],
-      description: `DApp Marketplace. Ticket seat# ${seat}`,
+      attributes: [],
+      description: `Tixlab Marketplace. Ticket description`,
       image:
         // "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaW5ZTWluIG1lZXQiIHZpZXdCb3g9IjAgMCAzNTAgMzUwIj4KICAgIDxzdHlsZT4uYmFzZSB7IGZpbGw6IHdoaXRlOyBmb250LWZhbWlseTogc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgfTwvc3R5bGU+CiAgICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJibGFjayIgLz4KICAgIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBjbGFzcz0iYmFzZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RXBpY0xvcmRIYW1idXJnZXI8L3RleHQ+Cjwvc3ZnPg==",
         `data:image/svg+xml;base64,${encodedString}`,
-      name: `Ticket seat# ${seat}`,
+      // "https://ipfs.moralis.io:2053/ipfs/QmdZhzwnFjh71EFxyoWbRZ34G85T3ddE228NbKo5dRgD7J/images/0.png",
+      name: `Here Generated # of the ticket`,
     };
 
     let result = await ipfs.add(JSON.stringify(metadata));
-
-    console.log("!!!!IPFS hash: ", result.path);
 
     // await marketplace.methods
     //   .createTicket(
@@ -121,7 +111,10 @@ export default function Marketplace({ courses }) {
 
     console.log("!!!!Ticket created successfully!");
     console.log("!!!!IPFS hash: ", result.path);
-    return result.path;
+    let res = `https://ipfs.infura.io/ipfs/${result.path}`;
+    console.log("!!!!ticket full URI: ", res);
+
+    return res;
 
     // https://ipfs.infura.io/ipfs/QmVRurswfJ9fqTbfeAgVuHgdjQMH9TQGkN1P43wyyrS2S6
   };
