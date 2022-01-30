@@ -12,6 +12,7 @@
     "price": "0.001",
     "author": "Maria",
     "link": "https://google.com",
+    "initialUri": "https://ipfs.moralis.io:2053/ipfs/QmS2asoxrA6RH5BKwbZAgPktbGbcGKyKqCseimvPwLaQLV/metadata/1.json",
 
     "wsl": [
       "Build Next JS apps on your own",
@@ -33,7 +34,7 @@
     "price": "0.001",
     "author": "Kai",
     "link": "https://google.com",
-
+    "initialUri": "https://ipfs.moralis.io:2053/ipfs/QmS2asoxrA6RH5BKwbZAgPktbGbcGKyKqCseimvPwLaQLV/metadata/2.json",
     "wsl": [
       "Build Next JS apps on your own",
       "Build ecommerce apps with modern technologies",
@@ -54,7 +55,7 @@
     "price": "0.001",
     "author": "Kai",
     "link": "https://google.com",
-
+    "initialUri": "https://ipfs.moralis.io:2053/ipfs/QmS2asoxrA6RH5BKwbZAgPktbGbcGKyKqCseimvPwLaQLV/metadata/0.json",
     "wsl": [
       "Build Next JS apps on your own",
       "Build ecommerce apps with modern technologies",

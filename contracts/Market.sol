@@ -103,21 +103,20 @@ using SafeMath for uint;
       _currentEventId++;
   }
 
-  // this function should be called by the buyer
-  function buyTicket(uint256 _eventId, string memory _ticketUri) public payable {
-      Event storage selectedEvent = events[_eventId];
-      //require(selectedEvent.currentState == State.ticketSaleStarted);
-      require(msg.value >= selectedEvent.ticketPrice);
-      uint256 tokenId = selectedEvent.currentTicketID;
-      require(tokenId <= selectedEvent.lastTicketID);
-      _setTokenUri(tokenId, _ticketUri);
-    //   address seller = ownerOf(tokenId);
-    //   balances[seller] += msg.value;
-      attendees[_eventId].push(msg.sender);
-    //   _safeTransfer(seller, msg.sender, tokenId, "");
-      selectedEvent.currentTicketID++;
-      emit ticketTransferred(tokenId, msg.sender);
-  }
+    // this function should be called by the buyer
+      function buyTicket(uint256 _eventId, uint256 _amount, string memory _ticketUri) public payable {
+        Event storage selectedEvent = events[_eventId];
+        //require(selectedEvent.currentState == State.ticketSaleStarted);
+        require(msg.value >= _amount.mul(selectedEvent.ticketPrice));
+        uint256 tokenId=selectedEvent.currentTicketID;
+        _setTokenUri(tokenId, _ticketUri);
+        address seller = selectedEvent.organiser;
+        balances[seller] += msg.value;
+        attendees[_eventId].push(msg.sender);
+        _safeTransferFrom(seller, msg.sender, _eventId, _amount, "");
+        emit ticketTransferred(_eventId, _amount, msg.sender);
+    }
+
 
   function getEventsLength() public view returns(uint) {
       return events.length;
@@ -127,7 +126,7 @@ using SafeMath for uint;
       return attendees[_eventId].length;
   }
 
-  event ticketTransferred(uint256 _id, address _owner); //show the address of new owner
+ event ticketTransferred(uint256 _id, uint256 _numTickets, address _owner); //show the address of new owner
   event eventCreated(uint256 _id, uint256 _numTickets, uint256 _price);
 
 //////////////// END of the Old ERC721 Contract

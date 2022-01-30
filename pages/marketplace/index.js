@@ -35,16 +35,12 @@ export default function Marketplace({ courses }) {
 
   const _purchaseCourse = async ({ hexCourseId, proof, value }, course) => {
     try {
-      // try {
-      //   const ticketURI = await createTicket();
-      // } catch (error) {
-      //   throw new Error(error.message);
-      // }
-      const ticketURI = await createTicket();
+      const ticketURI = await createTicketMetadata(course);
 
       const result = await contract.methods
-        .buyTicket(course.id, ticketURI)
-        // .buyTicket(course.id)
+        //buy 1 ticket is hardcoded now, then will add the nubmer to the form
+        //to input the desirable number of tickets to buy
+        .buyTicket(course.id, 1, ticketURI)
         .send({ from: account.data, value: value });
 
       ownedCourses.mutate([
@@ -65,49 +61,38 @@ export default function Marketplace({ courses }) {
     }
   };
 
-  //
-  //
-  //
-  //
+  let count = 0; //temporary solution to change ticket color
 
-  const createTicket = async () => {
-    let price = "777";
-    let zoomLink = "your event zoom link";
-    let category = "0";
+  const createTicketMetadata = async (course) => {
+    count += 1;
+    let category = count % 2;
 
-    let ticketText = `<tspan x="50%" dy="1.2em">Event kink: ${zoomLink}</tspan>
+    const colors = ["black", "blue"];
 
-    <tspan x="50%" dy="1.2em">Price: ${price} </tspan>`;
+    let ticketText = `<tspan x="50%" dy="1.2em">Event title: ${course.title}</tspan>
+
+    <tspan x="50%" dy="1.2em">Price: ${course.price} </tspan>`;
 
     let encodedString = Buffer.from(
       `<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">
   <style>.base { fill: white; font-family: serif; font-size: 14px; }</style>
-  <rect width="100%" height="100%" fill="yellow" />
+  <rect width="100%" height="100%" fill="${colors[category]}" />
   <text x="50%" y="40%" class="base" dominant-baseline="middle" text-anchor="middle">${ticketText}</text>
 </svg>`
     ).toString("base64");
     let metadata = {
-      zoom_link: zoomLink,
       ticket_category: category,
-      ticket_value: price,
+      ticket_value: course.price,
       attributes: [],
-      description: `Tixlab Marketplace. Ticket description`,
+      description: `Tixlab Marketplace. ${course.description}`,
       image:
         // "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaW5ZTWluIG1lZXQiIHZpZXdCb3g9IjAgMCAzNTAgMzUwIj4KICAgIDxzdHlsZT4uYmFzZSB7IGZpbGw6IHdoaXRlOyBmb250LWZhbWlseTogc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsgfTwvc3R5bGU+CiAgICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJibGFjayIgLz4KICAgIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBjbGFzcz0iYmFzZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RXBpY0xvcmRIYW1idXJnZXI8L3RleHQ+Cjwvc3ZnPg==",
         `data:image/svg+xml;base64,${encodedString}`,
       // "https://ipfs.moralis.io:2053/ipfs/QmdZhzwnFjh71EFxyoWbRZ34G85T3ddE228NbKo5dRgD7J/images/0.png",
-      name: `Here Generated # of the ticket`,
+      name: `${course.title}`,
     };
 
     let result = await ipfs.add(JSON.stringify(metadata));
-
-    // await marketplace.methods
-    //   .createTicket(
-    //     web3.utils.toWei(price, "ether"),
-    //     web3.utils.toWei(maxPrice.toString(), "ether"),
-    //     result.path
-    //   )
-    //   .send({ from: account });
 
     console.log("!!!!Ticket created successfully!");
     console.log("!!!!IPFS hash: ", result.path);
