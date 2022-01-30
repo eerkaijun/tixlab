@@ -38,9 +38,7 @@ export default function Marketplace({ courses }) {
       const ticketURI = await createTicketMetadata(course);
 
       const result = await contract.methods
-        //buy 1 ticket is hardcoded now, then will add the nubmer to the form
-        //to input the desirable number of tickets to buy
-        .buyTicket(course.id, 1, ticketURI)
+        .buyTicket(course.id, ticketURI)
         .send({ from: account.data, value: value });
 
       ownedCourses.mutate([
@@ -96,10 +94,8 @@ export default function Marketplace({ courses }) {
 
     console.log("!!!!Ticket created successfully!");
     console.log("!!!!IPFS hash: ", result.path);
-    let res = `https://ipfs.infura.io/ipfs/${result.path}`;
-    console.log("!!!!ticket full URI: ", res);
 
-    return res;
+    return result.path;
 
     // https://ipfs.infura.io/ipfs/QmVRurswfJ9fqTbfeAgVuHgdjQMH9TQGkN1P43wyyrS2S6
   };
